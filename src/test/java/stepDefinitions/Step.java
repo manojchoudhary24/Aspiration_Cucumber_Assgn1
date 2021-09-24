@@ -17,10 +17,10 @@ public class Step {
 	public Homepage hp;
 	
 	
-	@Given("^User Launch Chrome browser$")
+	@Given("^User Launch chrome browser$")
 	public void user_Launch_Chrome_browser() {
-		System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+"//Drivers/geckodriver.exe");
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"//Drivers/chromedriver.exe");
+		driver = new ChromeDriver();
 		
 		hp = new Homepage(driver);
 	
@@ -46,11 +46,8 @@ public class Step {
 		String actitle=driver.getTitle();
 		String exptitle="Cash Management Services - Investing & Retirement Planning | Aspiration";
 		
-		if(actitle.equalsIgnoreCase(exptitle)){
-			System.out.println("User navigates to Products Page");	
-		}
-		else {
-			System.out.println("User does not navigate to Products Page");	
+		if(assertEquals(actitle, exptitle)){
+		System.out.println("User navigates to Products Page");	
 		}
 	}
 
@@ -91,15 +88,14 @@ public class Step {
 	public void a_modal_containing_an_input_field_for_an_email_address_to_sign_up_appears() throws Throwable {
 
 		String gettxt=hp.model1display();
+		String exptxt="Get Started with Aspiration";
 		
-		if(gettxt.contains("Get Started with Aspiration")){
+		if(assertEquals(gettxt,exptxt)){
 			System.out.println("Aspiration Model opens");		
 		} else {
-			System.out.println("Aspiration Model does not opens");	
+			System.out.println("Aspiration Model does not open");	
 		}
-		
-		
-		
+					
 	}
 
 	@Then("^User close the modal$")
@@ -117,8 +113,9 @@ public class Step {
 	@Then("^A modal with monthly and yearly plans appears$")
 	public void a_modal_with_monthly_and_yearly_plans_appears() throws Throwable {
 		String gettxt2=hp.model2display();
+		String exptxt2="Choose your Aspiration Plus plan";
 		
-		if(gettxt2.contains("Choose your Aspiration Plus plan")){
+		if(assertEquals(gettxt2,exptxt2)){
 			System.out.println("AspirationPlus Model opens");		
 		} else {
 			System.out.println("AspirationPlus Model does not opens");
@@ -131,7 +128,8 @@ public class Step {
 		if(hp.yearlyradiobutton()){
 			String btn1act=hp.btn1text();
 			String btn1exp="$71.88 paid once yearly";
-			if(btn1act.equalsIgnoreCase(btn1exp)){
+			
+			if(assertEquals(btn1act,btn1exp)){
 				System.out.println("Yearly radio option is $71.88 paid once yearly");
 			}
 			
@@ -150,7 +148,8 @@ public class Step {
 		if(hp.monthlyradiobutton()){
 			String btn2act=hp.btn2text();
 			String btn2exp="$7.99 paid monthly";
-			if(btn2act.equalsIgnoreCase(btn2exp)){
+			
+			if(assertEquals(btn2act,btn2exp)){
 				System.out.println("Monthly radio option is $7.99 paid monthly");	
 			}
 			
